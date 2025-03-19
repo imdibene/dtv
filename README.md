@@ -1,7 +1,9 @@
 # Device Tree Visualiser
 
-This small cli tool transform a device-tree-blob into a graphical representation\
-if you are like me and need to see pictures to understand the relationships, this tool might help you.
+This small cli tool generates a graphical representation of a *device-tree-blob*\
+if you are like me, and have a monkey brain and need to see the pretty pictures to\
+understand all those fancy words, this tool might help you to to understand the relationships\
+of the devices of your platform.
 
 ## How to build it
 
