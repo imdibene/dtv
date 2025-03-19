@@ -44,7 +44,7 @@ void create_graph(Agraph_t* graph, Device_Tree_Node_t* node)
 {
 	Agnode_t* parent_node = agnode(graph, (char*)node->name.c_str(), 1);
 	for (auto& [k, v] : node->properties)
-		agsafeset(parent_node, (char*)k.c_str(), (char*)v.c_str(), "");
+		agsafeset(parent_node, const_cast<char*>(k.c_str()), const_cast<char*>(v.c_str()), const_cast<char*>(""));
 
 	for (auto child : node->children) {
 		Agnode_t* child_node = agnode(graph, (char*)child->name.c_str(), 1);

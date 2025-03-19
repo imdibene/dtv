@@ -3,6 +3,16 @@
 #define NOB_EXPERIMENTAL_DELETE_OLD
 #include "nob.h"
 
+#define COMMON_CFLAGS	\
+	"-Wall",	\
+	"-Wextra",	\
+	"-pedantic",	\
+	"-std=c++17"
+#define TARGET	\
+	"-o",	\
+	"dtv",	\
+	"dtv.cc"
+
 void usage(const char* program)
 {
 	nob_log(INFO, "Usage: %s [<subcommand>]", program);
@@ -20,7 +30,7 @@ bool build(Cmd* cmd)
 		return false;
 
 	cmd_append(cmd,
-	    "clang++", "-o", "dtv", "dtv.cc",
+	    "clang++", COMMON_CFLAGS, TARGET,
 	    "-I/opt/homebrew/include", "-I/opt/homebrew/include/graphviz",
 	    "-L/opt/homebrew/lib",
 	    "-lfdt", "-lgvc", "-lcgraph", "-lcdt");
