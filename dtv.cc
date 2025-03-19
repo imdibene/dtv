@@ -3,6 +3,7 @@
 #include <iostream>
 #include <libfdt.h>
 #include <map>
+#include <string>
 #include <vector>
 
 struct Device_Tree_Node_t {
@@ -24,7 +25,7 @@ Device_Tree_Node_t* parse_tree(void* fdt, int node_offset)
 		const char* value;
 		int len;
 		value = (const char*)fdt_getprop_by_offset(fdt, property_offset, &name, &len);
-		node->properties[name] = std::string((char*)value, len);
+		node->properties[name] = std::string(value, len);
 	}
 
 	// Parse children
@@ -62,6 +63,8 @@ int main(int argc, char** argv)
 	}
 
 	const char* dtb_path = argv[1];
+	std::string in(dtb_path);
+	std::string out = in.substr(0, in.find_last_of('.')) + ".svg";
 
 	// Load DTB file
 	FILE* f = fopen(dtb_path, "rb");
@@ -91,7 +94,7 @@ int main(int argc, char** argv)
 	create_graph(graph, root);
 	// Render
 	gvLayout(gvc, graph, "dot");
-	gvRenderFilename(gvc, graph, "svg", "tree.svg");
+	gvRenderFilename(gvc, graph, "svg", out.c_str());
 	gvFreeLayout(gvc, graph);
 
 	// Clean up
