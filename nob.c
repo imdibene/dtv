@@ -37,6 +37,10 @@ void usage(const char* program)
 
 bool build(Cmd* cmd)
 {
+	cmd_append(cmd, "bash", "check-dependencies.sh");
+	if (!cmd_run_sync_and_reset(cmd))
+		return false;
+
 	cmd_append(cmd, "bash", "format");
 	if (!cmd_run_sync_and_reset(cmd))
 		return false;
