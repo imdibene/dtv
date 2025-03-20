@@ -17,12 +17,21 @@ clang -o nob nob.c
 Now you can use the tool
 
 ```shell
-./dtv foo.dtb
+./dtv foo.dtb <render_engine: dot|fdp>
+
+./dtv foo.dtb fdp
+./dtv foo.dtb dot
 ```
 
 This will create a `foo.svg` as output, now your device tree has a graphical representation.
 
 ## tl;dr
 
-foo.dtb -> [ dtv ] -> foo.svg
+foo.dtb -> [ dtv : dot|fdp ] -> foo.svg
 
+## References
+
+- [git kernel tree: Documentation/devicetree](https://web.git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/devicetree)
+- [Website: https://www.devicetree.org](https://www.devicetree.org)
+- [Video: Device Tree for Dummies! - Thomas Petazzoni, Free Electrons](https://youtu.be/m_NyYEBxfn8?si=gxfQnGGdv6R7iz1e)
+- [Video: Device Tree: hardware description for everybody!](https://youtu.be/Nz6aBffv-Ek?si=vWhUn6WJIg9Tt-xT)
