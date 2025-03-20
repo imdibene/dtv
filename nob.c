@@ -3,28 +3,27 @@
 #define NOB_EXPERIMENTAL_DELETE_OLD
 #include "nob.h"
 
-//TODO: libfdt headers on MacOS throw some warnings =/
+// TODO: libfdt headers on MacOS throw some warnings =/
 #if defined(__linux__)
-#define COMMON_CFLAGS	\
-	"-Wall",	\
-	"-Werror",	\
-	"-Wextra",	\
-	"-pedantic",	\
-	"-std=c++17"
+#define COMMON_CFLAGS    \
+	"-Wall",         \
+	    "-Werror",   \
+	    "-Wextra",   \
+	    "-pedantic", \
+	    "-std=c++17"
 #elif defined(__APPLE__) && defined(__MACH__)
-#define COMMON_CFLAGS	\
-	"-Wall",	\
-	"-Wextra",	\
-	"-pedantic",	\
-	"-std=c++17"
+#define COMMON_CFLAGS    \
+	"-Wall",         \
+	    "-Wextra",   \
+	    "-pedantic", \
+	    "-std=c++17"
 #else
-#	error "Unsupported platform"
+#error "Unsupported platform"
 #endif
-#define TARGET	\
-	"-o",	\
-	"dtv",	\
-	"dtv.cc"
-
+#define TARGET     \
+	"-o",      \
+	    "dtv", \
+	    "dtv.cc"
 
 void usage(const char* program)
 {
