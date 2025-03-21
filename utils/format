@@ -1,0 +1,2 @@
+find src/ -type f \( -name "*.cc" -o -name "*.h" \) -exec \
+clang-format --style="{BasedOnStyle: WebKit, UseTab: Always, TabWidth: 8, IndentWidth: 8}" -i {} +

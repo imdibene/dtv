@@ -1,7 +1,12 @@
 #define NOB_IMPLEMENTATION
 #define NOB_STRIP_PREFIX
 #define NOB_EXPERIMENTAL_DELETE_OLD
-#include "nob.h"
+#include "external/nob.h"
+
+////////////////////////////////////////////////////////////////////////////////
+///	Compile options and config
+////////////////////////////////////////////////////////////////////////////////
+#define CC "clang++"
 
 // TODO: libfdt headers on MacOS throw some warnings =/
 #if defined(__linux__)
@@ -20,10 +25,30 @@
 #else
 #error "Unsupported platform"
 #endif
-#define TARGET     \
-	"-o",      \
-	    "dtv", \
-	    "dtv.cc"
+
+#define TARGET           \
+	"-o",            \
+	    "build/dtv", \
+	    "src/dtv.cc"
+
+#define PRJ_INCLUDE                    \
+	"-Isrc",                       \
+	    "-Iexternal",              \
+	    "-I/opt/homebrew/include", \
+	    "-I/opt/homebrew/include/graphviz"
+
+#define LIBS_PATH \
+	"-L/opt/homebrew/lib"
+
+#define LIBS            \
+	"-lfdt",        \
+	    "-lgvc",    \
+	    "-lcgraph", \
+	    "-lcdt"
+
+////////////////////////////////////////////////////////////////////////////////
+///	commands
+////////////////////////////////////////////////////////////////////////////////
 
 void usage(const char* program)
 {
@@ -37,24 +62,30 @@ void usage(const char* program)
 
 bool build(Cmd* cmd)
 {
-	cmd_append(cmd, "bash", "check-dependencies.sh");
+	nob_log(INFO, "Checking project dependencies...");
+	cmd_append(cmd, "bash", "utils/dependencies");
 	if (!cmd_run_sync_and_reset(cmd))
 		return false;
 
-	cmd_append(cmd, "bash", "format");
+	nob_log(INFO, "Reformatting codebase...");
+	cmd_append(cmd, "bash", "utils/format");
 	if (!cmd_run_sync_and_reset(cmd))
 		return false;
 
-	cmd_append(cmd,
-	    "clang++", COMMON_CFLAGS, TARGET,
-	    "-I/opt/homebrew/include", "-I/opt/homebrew/include/graphviz",
-	    "-L/opt/homebrew/lib",
-	    "-lfdt", "-lgvc", "-lcgraph", "-lcdt");
+	nob_log(INFO, "Building...");
+	if (!mkdir_if_not_exists("build"))
+		return false;
+
+	cmd_append(cmd, CC, COMMON_CFLAGS, TARGET, PRJ_INCLUDE, LIBS_PATH, LIBS);
 	if (!cmd_run_sync_and_reset(cmd))
 		return false;
 
 	return true;
 }
+
+////////////////////////////////////////////////////////////////////////////////
+///	main
+////////////////////////////////////////////////////////////////////////////////
 
 int main(int argc, char** argv)
 {
