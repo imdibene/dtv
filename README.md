@@ -43,8 +43,7 @@ This will create a `foo.svg` as output, now your device tree has a graphical rep
 ├── src                                 # This project sources
 │   └── dtv.cc                          # main
 └── utils                               # Collection of utilities
-    ├── dependencies                    # Check project dependencies
-    └── format                          # Codebase formatter
+    └── dependencies                    # Check project dependencies
 ```
 
 ## tl;dr
