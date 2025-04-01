@@ -15,21 +15,22 @@
 ////////////////////////////////////////////////////////////////////////////////
 ///	Compile options and config
 ////////////////////////////////////////////////////////////////////////////////
-#define CC "clang++"
+#define CC         \
+	"clang++", \
+	    "-std=c++17"
+
 // TODO: libfdt headers on MacOS throw some warnings =/
 #if defined(__linux__)
-#define COMMON_CFLAGS    \
-	"-Wall",         \
-	    "-Werror",   \
-	    "-Wextra",   \
-	    "-pedantic", \
-	    "-std=c++17"
+#define COMMON_CFLAGS  \
+	"-Wall",       \
+	    "-Werror", \
+	    "-Wextra", \
+	    "-pedantic"
 #elif defined(__APPLE__) && defined(__MACH__)
-#define COMMON_CFLAGS    \
-	"-Wall",         \
-	    "-Wextra",   \
-	    "-pedantic", \
-	    "-std=c++17"
+#define COMMON_CFLAGS  \
+	"-Wall",       \
+	    "-Wextra", \
+	    "-pedantic"
 #else
 #error "Unsupported platform"
 #endif
@@ -63,9 +64,14 @@
 ////////////////////////////////////////////////////////////////////////////////
 ///	Targets
 ////////////////////////////////////////////////////////////////////////////////
-#define TARGET_DTV_APP   \
-	"-o",            \
-	    "build/dtv", \
+#define TARGET_DTV_APP           \
+	CC,                      \
+	    COMMON_CFLAGS,       \
+	    PRJ_INCLUDE_PATHS,   \
+	    EXTERNAL_LIBS_PATHS, \
+	    EXTERNAL_LIBS,       \
+	    "-o",                \
+	    "build/dtv",         \
 	    "src/dtv.cc"
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -140,7 +146,7 @@ bool build(Cmd* cmd)
 	nob_log(INFO, YELLOW SYMBOL_BUILD "Building..." RESET);
 	if (!mkdir_if_not_exists("build"))
 		return false;
-	cmd_append(cmd, CC, COMMON_CFLAGS, TARGET_DTV_APP, PRJ_INCLUDE_PATHS, EXTERNAL_LIBS_PATHS, EXTERNAL_LIBS);
+	cmd_append(cmd, TARGET_DTV_APP);
 	if (!cmd_run_sync_and_reset(cmd))
 		return false;
 	TIMER_STOP(t);
