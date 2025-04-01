@@ -73,6 +73,15 @@
 	    "-o",                \
 	    "build/dtv",         \
 	    "src/dtv.cc"
+#define TARGET_PS2GV_APP         \
+	CC,                      \
+	    COMMON_CFLAGS,       \
+	    PRJ_INCLUDE_PATHS,   \
+	    EXTERNAL_LIBS_PATHS, \
+	    EXTERNAL_LIBS,       \
+	    "-o",                \
+	    "build/ps2gv",       \
+	    "src/ps2gv.cc"
 
 ////////////////////////////////////////////////////////////////////////////////
 ///	Information/Logger symbols
@@ -121,7 +130,7 @@ void usage(const char* program)
 	nob_log(INFO, "Usage: %s [<subcommand>]", program);
 	nob_log(INFO, "Subcommands:");
 	nob_log(INFO, "		build");
-	nob_log(INFO, "			Build the application.");
+	nob_log(INFO, "			Build the applications.");
 	nob_log(INFO, "		format");
 	nob_log(INFO, "			Reformat codebase according to codestyle.");
 	nob_log(INFO, "		help");
@@ -147,6 +156,9 @@ bool build(Cmd* cmd)
 	if (!mkdir_if_not_exists("build"))
 		return false;
 	cmd_append(cmd, TARGET_DTV_APP);
+	if (!cmd_run_sync_and_reset(cmd))
+		return false;
+	cmd_append(cmd, TARGET_PS2GV_APP);
 	if (!cmd_run_sync_and_reset(cmd))
 		return false;
 	TIMER_STOP(t);
