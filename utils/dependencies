@@ -39,6 +39,8 @@ done
 # Verify Graphviz libraries
 if ! pkg-config --exists libgvc libcgraph libcdt; then
 	echo "Graphviz libraries (libgvc, libcgraph, libcdt) are missing"
+	echo "try installing the -dev packages:"
+	echo "libfdt-dev, and libgraphviz-dev"
 	exit 1
 fi
 
