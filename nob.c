@@ -81,7 +81,8 @@
 	    EXTERNAL_LIBS,       \
 	    "-o",                \
 	    "build/ps2gv",       \
-	    "src/ps2gv.cc"
+	    "src/ps2gv.cc",      \
+	    "src/ps2gv-config.cc"
 
 ////////////////////////////////////////////////////////////////////////////////
 ///	Information/Logger symbols
