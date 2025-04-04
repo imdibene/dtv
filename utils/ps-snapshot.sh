@@ -1,20 +1,10 @@
 #!/usr/bin/env bash
 
 if [[ "$(uname)" == "Darwin" ]]; then # Apple MacOS
-	psargs="-eo ppid,pid,pcpu,rss,comm"
-       	readargs="ppid pid pcpu rss comm"
+	ps -eo ppid,pid,rss,pcpu,comm
 else # Linux
-	psargs="-eo zone,ppid,pid,pcpu,rss,comm"
-       	readargs="zone ppid pid pcpu rss comm"
+	ps -eo zone,ppid,pid,rss,pcpu,comm | while read -r zone ppid pid rss pcpu comm; do
+		service=$(cat /proc/$pid/cgroup 2>/dev/null | grep -oP '(?<=/system.slice/)(.*)(?=.service)' | head -n 1)
+		printf "%-5s %-5s %-5s %-6s %-6s %-20s %-20s\n" "$zone" "$ppid" "$pid" "$rss" "$pcpu" "$comm" "${service:--}"
+	done
 fi
-
-ps ${psargs} | while read -r ${readargs}; do
-	if [[ "$(uname)" == "Darwin" ]]; then
-		# For macOS (using launchctl to check services)
-		service=$(launchctl list | grep -E "\.${pid}" | cut -d'.' -f2)
-	else
-		# For Linux (systemd service check)
-		service=$(readlink /proc/$pid/cgroup 2>/dev/null | grep -oP '(?<=/system.slice/)(.*)(?=.service)' | head -n 1)
-	fi
-	printf "%-5s %-5s %-5s %-6s %-6s %-20s %-20s\n" "$zone" "$ppid" "$pid" "$pcpu" "$rss" "$comm" "${service:--}"
-done
