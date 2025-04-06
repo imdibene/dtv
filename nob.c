@@ -64,25 +64,25 @@
 ////////////////////////////////////////////////////////////////////////////////
 ///	Targets
 ////////////////////////////////////////////////////////////////////////////////
-#define TARGET_DTV_APP           \
+#define TARGET_DT2GV_APP         \
 	CC,                      \
 	    COMMON_CFLAGS,       \
 	    PRJ_INCLUDE_PATHS,   \
 	    EXTERNAL_LIBS_PATHS, \
 	    EXTERNAL_LIBS,       \
 	    "-o",                \
-	    "build/dtv",         \
-	    "src/dtv.cc"
-#define TARGET_PS2GV_APP         \
-	CC,                      \
-	    COMMON_CFLAGS,       \
-	    PRJ_INCLUDE_PATHS,   \
-	    EXTERNAL_LIBS_PATHS, \
-	    EXTERNAL_LIBS,       \
-	    "-o",                \
-	    "build/ps2gv",       \
-	    "src/ps2gv.cc",      \
-	    "src/ps2gv-config.cc"
+	    "build/dt2gv",       \
+	    "src/dt2gv/dt2gv.cc"
+#define TARGET_PS2GV_APP          \
+	CC,                       \
+	    COMMON_CFLAGS,        \
+	    PRJ_INCLUDE_PATHS,    \
+	    EXTERNAL_LIBS_PATHS,  \
+	    EXTERNAL_LIBS,        \
+	    "-o",                 \
+	    "build/ps2gv",        \
+	    "src/ps2gv/ps2gv.cc", \
+	    "src/ps2gv/ps2gv-config.cc"
 
 ////////////////////////////////////////////////////////////////////////////////
 ///	Information/Logger symbols
@@ -156,7 +156,7 @@ bool build(Cmd* cmd)
 	nob_log(INFO, YELLOW SYMBOL_BUILD "Building..." RESET);
 	if (!mkdir_if_not_exists("build"))
 		return false;
-	cmd_append(cmd, TARGET_DTV_APP);
+	cmd_append(cmd, TARGET_DT2GV_APP);
 	if (!cmd_run_sync_and_reset(cmd))
 		return false;
 	cmd_append(cmd, TARGET_PS2GV_APP);
