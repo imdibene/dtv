@@ -1,12 +1,33 @@
-#ifndef PS2GV_CONFIG_H
-#define PS2GV_CONFIG_H
-
+#ifndef PS2GV_SETTINGS_H
+#define PS2GV_SETTINGS_H
 #include <map>
 #include <string>
 
+enum class ScaleMode {
+	CPU,
+	RSS
+};
+
 struct Config {
+	void load(const std::string& filepath);
+	// scaling
+	ScaleMode scale_mode = ScaleMode::CPU;
+	float cpu_limit = 10.0f;
+	float min_cpu_threshold = 0.1f; // cpu < 0.1 gets no scaling
+	float rss_limit = 15000.0f; // Arbitrary 15MB
+	float min_rss_threshold = 1000.0f; // 1MB
+	float base_width = 1.0f;
+	float width_factor = 1.8f;
+	float base_height = 0.7f;
+	float height_factor = 2.3f;
+	int base_font_size = 10;
+	// zones
+	bool hide_zones = false;
+	// TODO: animation
+	// int frame_delay_ms = 500;
+	// bool create_animation = false;
 	// colouring
-	std::map<std::string, std::string> comm_colours = {
+	std::map<std::string, std::string> command_colours = {
 		// default
 		{ "default", "silver" },
 		// web & communication
@@ -134,20 +155,5 @@ struct Config {
 		{ "zsched", "paleturquoise3" },
 		{ "zsh", "paleturquoise3" }
 	};
-	// scaling
-	float cpu_limit = 10.0f;
-	float min_cpu_threshold = 0.1f; // cpu < 0.1 gets no scaling
-	float base_width = 1.0f;
-	float width_factor = 1.8f;
-	float base_height = 0.7f;
-	float height_factor = 2.3f;
-	int base_font_size = 10;
-	// zones
-	bool hide_zones = false;
-	// TODO: animation
-	// int frame_delay_ms = 500;
-	// bool create_animation = false;
-	// load from file if exists
-	void load(const std::string& filename);
 };
-#endif // PS2GV_CONFIG_H
+#endif // PS2GV_SETTINGS_H
