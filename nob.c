@@ -73,16 +73,19 @@
 	    "-o",                \
 	    "build/dt2gv",       \
 	    "src/dt2gv/dt2gv.cc"
-#define TARGET_PS2GV_APP          \
-	CC,                       \
-	    COMMON_CFLAGS,        \
-	    PRJ_INCLUDE_PATHS,    \
-	    EXTERNAL_LIBS_PATHS,  \
-	    EXTERNAL_LIBS,        \
-	    "-o",                 \
-	    "build/ps2gv",        \
-	    "src/ps2gv/ps2gv.cc", \
-	    "src/ps2gv/ps2gv-config.cc"
+#define TARGET_PS2GV_APP                    \
+	CC,                                 \
+	    COMMON_CFLAGS,                  \
+	    PRJ_INCLUDE_PATHS,              \
+	    EXTERNAL_LIBS_PATHS,            \
+	    EXTERNAL_LIBS,                  \
+	    "-o",                           \
+	    "build/ps2gv",                  \
+	    "src/ps2gv/ps2gv.cc",           \
+	    "src/ps2gv/cli-parser.cc",      \
+	    "src/ps2gv/config-settings.cc", \
+	    "src/ps2gv/graph-generator.cc", \
+	    "src/ps2gv/process-capture.cc"
 
 ////////////////////////////////////////////////////////////////////////////////
 ///	Information/Logger symbols
