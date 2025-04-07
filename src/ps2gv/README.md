@@ -34,18 +34,10 @@ The tool supports these usage patterns:
 ./ps2gv -c settings.conf log1.txt log2.txt
 ```
 
-The input files can be generated:
-
-- for Linux
+The utility script [ps-snapshot.sh](../../utils/ps-snapshot.sh) can be use to create the input files:
 
 ```shell
-ps -eo zone,ppid,pid,rss,pcpu,comm > ps-snapshot
-```
-
-- for MacOS
-
-```shell
-ps -eo ppid,pid,rss,pcpu,comm > ps-snapshot
+bash ps-snapshot.sh > ps-snapshot.trace
 ```
 
 ## tl;dr

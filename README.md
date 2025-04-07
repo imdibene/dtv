@@ -24,19 +24,15 @@ This will create a `build` directory with all compiled binaries.
 ./
 ├── LICENSE     # MIT license
 ├── README.md   # This file
-├── build/      # Built artifacts
-│   ├── dt2gv   # Device tree visualiser
-│   └── ps2gv   # Process tree visualiser
+├── build/      # Built artifacts (tools)
 ├── examples/   # Example graph outputs
 ├── external/   # External static libraries and dependencies
-│   └── nob.h   # 'nob' build system header
 ├── nob         # Build system
 ├── nob.c       # Build system source
 ├── src/        # Source code for each tool
 │   ├── dt2gv/  # Device Tree to Graph Visualiser
 │   └── ps2gv/  # Process Tree to Graph Visualiser
-└── utils/              # Utility scripts
-    └── dependencies    # Dependency checker
+└── utils/      # Utility scripts
 ```
 
 ## 🛠️ Tools
